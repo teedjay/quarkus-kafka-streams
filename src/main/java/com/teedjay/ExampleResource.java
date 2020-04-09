@@ -13,4 +13,5 @@ public class ExampleResource {
     public String hello() {
         return "hello";
     }
+
 }

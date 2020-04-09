@@ -29,6 +29,9 @@ target/
 # MacOS files
 .DS_Store
 
+# Quarkus Local Config
+.env
+
 # Vim
 *.swp
 *.swo
