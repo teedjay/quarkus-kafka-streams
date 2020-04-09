@@ -15,12 +15,8 @@ When you compile `mvn clean quarkus:dev` this is added to `target` folder automa
 Note that all ENV settings should be upper cased.
 Use underscores to replace any . and - symbols.
 
-Example .env file will be
+A simple .env file can look like the one below,
+see the file [env example file](.env-example) for a more detailed example.
 ```
-TOPIC_INPUT = THJO-INPUT
-TOPIC_OUTPUT = THJO-OUTPUT
-TOPIC_DLQ = THJO-ERROR
-
 QUARKUS_KAFKA_STREAMS_BOOTSTRAP_SERVERS = kafka.somewhere.safe:9094
-QUARKUS_KAFKA_STREAMS_TOPICS = THJO-INPUT,THJO-OUTPUT,THJO-ERROR
 ```
