@@ -5,7 +5,6 @@ import org.apache.kafka.streams.KeyValue;
 import org.apache.kafka.streams.StreamsBuilder;
 import org.apache.kafka.streams.Topology;
 import org.apache.kafka.streams.kstream.Consumed;
-import org.apache.kafka.streams.kstream.Produced;
 import org.apache.kafka.streams.processor.RecordContext;
 import org.apache.kafka.streams.processor.TopicNameExtractor;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
@@ -34,25 +33,16 @@ public class KafkaStreamProcessor {
 
         builder
             .stream(TOPIC_INPUT, Consumed.with(Serdes.String(), Serdes.String()))
-            .map((k,v) -> converter(k,v))
-            .to(new TopicNameDecider(), Produced.with(Serdes.String(), Serdes.String()))
+            .map(this::converter)
+            .to(new TopicNameDecider())
             ;
 
-        /*
-        KStream<String, String>[] outputs = builder
-            .stream(TOPIC_INPUT, Consumed.with(Serdes.String(), Serdes.String()))
-            .map((k,v) -> converter(k,v))
-            .branch(
-                (k,v) -> (v.contains("liaf")),
-                (k,v) -> true
-            );
-        outputs[0].to(TOPIC_DLQ, Produced.with(Serdes.String(), Serdes.String()));
-        outputs[1].to(TOPIC_OUTPUT, Produced.with(Serdes.String(), Serdes.String()));
-        */
-
         return builder.build();
+
     }
 
+    // any message containing "liaf" is sendt to TOPIC_DLQ else to TOPIC_OUTPUT
+    // ("liaf" on output means that input message contained the text "fail" somewhere)
     class TopicNameDecider implements TopicNameExtractor<String,String> {
         @Override
         public String extract(String key, String value, RecordContext recordContext) {

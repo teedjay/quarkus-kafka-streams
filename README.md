@@ -8,6 +8,10 @@ Testing health, metrics and transactions using Kafka Streams on Quarkus
 - [ ] http://localhost:8080/health/ready
 - [ ] http://localhost:8080/health/live
 
+## Check Metrics
+It is possible to check how many messages are processed :
+http://localhost:8080/metrics/application
+
 ## Override settings with .env file
 Place the .env file with ENV variables you want to override in the root folder (together with pom.xml).
 When you compile `mvn clean quarkus:dev` this is added to `target` folder automatically.
