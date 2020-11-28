@@ -1,16 +1,18 @@
 # quarkus-kafka-streams
 Testing health, metrics and transactions using Kafka Streams on Quarkus
 
-- [ ] http://localhost:8080/swagger-ui
-- [ ] http://localhost:8080/metrics
-- [ ] http://localhost:8080/metrics/application
-- [ ] http://localhost:8080/health
-- [ ] http://localhost:8080/health/ready
-- [ ] http://localhost:8080/health/live
+```
+curl http://localhost:8080/generate          <== generate a single message
+curl http://localhost:8080/generate/{count}  <== generate lots of messages
 
-## Check Metrics
-It is possible to check how many messages are processed :
-http://localhost:8080/metrics/application
+curl -X POST http://localhost:8080/generate/{count}  <== generate lots of messages without waiting for downstream acs
+
+http://localhost:8080/health-ui/
+http://localhost:8080/swagger-ui/
+
+http://localhost:8080/metrics/
+http://localhost:8080/openapi
+```
 
 ## Override settings with .env file
 Place the .env file with ENV variables you want to override in the root folder (together with pom.xml).
