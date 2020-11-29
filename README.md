@@ -14,6 +14,21 @@ http://localhost:8080/metrics/
 http://localhost:8080/openapi
 ```
 
+## Prerequisite
+You need JDK 15 to compile and run this project and you also need to enable preview mode since record are used.
+Right now enabling preview mode for compiling and dev mode works out of the box, not need to do anthing specific.
+
+But for some test and some more advanced build processing you might need to set this ENV variable.
+```
+export _JAVA_OPTIONS="--enable-preview"
+```
+
+## Push to Docker Hub
+Configured with JIB, will push directly to docker hub
+```
+./mvnw clean package -Dmaven.test.skip=true -Dquarkus.container-image.push=true
+```
+
 ## Override settings with .env file
 Place the .env file with ENV variables you want to override in the root folder (together with pom.xml).
 When you compile `mvn clean quarkus:dev` this is added to `target` folder automatically.
